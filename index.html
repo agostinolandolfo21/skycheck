@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'unsafe-inline' https://unpkg.com; connect-src https://api.openweathermap.org https://*.tile.openstreetmap.org https://tile.openweathermap.org; img-src * data: blob:;">
+    <meta name="description" content="SkyCheck - Il tuo meteo in tempo reale con previsioni, mappa e qualità dell'aria">
+    <meta name="theme-color" content="#667eea">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
     <title>SkyCheck - App Meteo</title>
     
     <!-- Leaflet CSS -->
@@ -863,6 +867,27 @@
         });
 
         console.log('☁️ SkyCheck v2.0 caricato!');
+
+        // Registra il Service Worker per PWA
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then((registration) => {
+                        console.log('✅ Service Worker registrato:', registration.scope);
+                    })
+                    .catch((error) => {
+                        console.log('❌ Errore registrazione Service Worker:', error);
+                    });
+            });
+        }
+
+        // Prompt per installare l'app (solo su dispositivi supportati)
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            console.log('💡 App può essere installata!');
+        });
     </script>
 </body>
 </html>
