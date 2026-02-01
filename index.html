@@ -17,7 +17,6 @@
         }
 
         :root {
-            /* Colori tema chiaro */
             --bg-gradient-start: #667eea;
             --bg-gradient-end: #764ba2;
             --container-bg: rgba(255, 255, 255, 0.95);
@@ -30,7 +29,6 @@
             --shadow-color: rgba(0, 0, 0, 0.3);
         }
 
-        /* Dark mode */
         @media (prefers-color-scheme: dark) {
             :root {
                 --bg-gradient-start: #1a1a2e;
@@ -50,9 +48,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
 
@@ -61,8 +56,8 @@
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 20px 60px var(--shadow-color);
-            max-width: 800px;
-            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
         h1 {
@@ -154,6 +149,47 @@
             margin-bottom: 20px;
         }
 
+        /* Allerte meteo */
+        .weather-alerts {
+            background: #fed7d7;
+            border: 2px solid #fc8181;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .weather-alerts.active {
+            display: block;
+        }
+
+        .weather-alerts h3 {
+            color: #c53030;
+            margin-bottom: 10px;
+        }
+
+        .alert-item {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .alert-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-title {
+            font-weight: bold;
+            color: #c53030;
+            margin-bottom: 5px;
+        }
+
+        .alert-description {
+            color: #666;
+            font-size: 0.9em;
+        }
+
         /* Mappa */
         .map-container {
             background: var(--container-bg);
@@ -168,6 +204,8 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .map-header h3 {
@@ -178,6 +216,7 @@
         .map-controls {
             display: flex;
             gap: 5px;
+            flex-wrap: wrap;
         }
 
         .map-toggle {
@@ -229,6 +268,35 @@
             text-transform: capitalize;
         }
 
+        .sun-times {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .sun-time-item {
+            text-align: center;
+        }
+
+        .sun-time-icon {
+            font-size: 2em;
+            margin-bottom: 5px;
+        }
+
+        .sun-time-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .sun-time-value {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
         .weather-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -257,6 +325,62 @@
         .detail-value {
             font-size: 1.5em;
             font-weight: bold;
+        }
+
+        /* Previsioni 7 giorni */
+        .forecast-section {
+            background: var(--container-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid var(--input-border);
+        }
+
+        .forecast-section h3 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .forecast-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .forecast-day {
+            background: linear-gradient(135deg, var(--card-gradient-start) 0%, var(--card-gradient-end) 100%);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        .forecast-date {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        .forecast-icon {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .forecast-temp {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .forecast-temp-range {
+            font-size: 0.8em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .forecast-desc {
+            font-size: 0.8em;
+            margin-top: 5px;
+            text-transform: capitalize;
         }
 
         .air-quality {
@@ -307,6 +431,25 @@
             color: var(--text-primary);
             margin: 5px 0;
         }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .forecast-container {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            }
+
+            .sun-times {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -333,6 +476,12 @@
         <div class="weather-info" id="weatherInfo">
             <h2 class="city-name" id="cityName"></h2>
             
+            <!-- Allerte meteo -->
+            <div class="weather-alerts" id="weatherAlerts">
+                <h3>⚠️ Allerte Meteo</h3>
+                <div id="alertsContent"></div>
+            </div>
+
             <!-- Mappa -->
             <div class="map-container">
                 <div class="map-header">
@@ -350,6 +499,20 @@
                 <div class="weather-icon-main" id="weatherIcon"></div>
                 <div class="temp-main" id="temperature"></div>
                 <div class="weather-description" id="description"></div>
+                
+                <!-- Alba e Tramonto -->
+                <div class="sun-times">
+                    <div class="sun-time-item">
+                        <div class="sun-time-icon">🌅</div>
+                        <div class="sun-time-label">Alba</div>
+                        <div class="sun-time-value" id="sunrise"></div>
+                    </div>
+                    <div class="sun-time-item">
+                        <div class="sun-time-icon">🌇</div>
+                        <div class="sun-time-label">Tramonto</div>
+                        <div class="sun-time-value" id="sunset"></div>
+                    </div>
+                </div>
                 
                 <div class="weather-details">
                     <div class="detail-item">
@@ -375,6 +538,12 @@
                 </div>
             </div>
 
+            <!-- Previsioni 5 giorni -->
+            <div class="forecast-section">
+                <h3>📅 Previsioni 5 Giorni</h3>
+                <div class="forecast-container" id="forecastContainer"></div>
+            </div>
+
             <div class="air-quality">
                 <h3>🌬️ Qualità dell'Aria</h3>
                 <div id="airQualityContent"></div>
@@ -386,10 +555,8 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
     <script>
-        // API key già configurata
         const API_KEY = '0a6d56de19e0ba91d4c792c2d0eb6405';
 
-        // Variabili per la mappa
         let map = null;
         let marker = null;
         let weatherLayers = {
@@ -398,7 +565,6 @@
             temp: null
         };
 
-        // Mappa delle icone meteo basate sui codici OpenWeatherMap
         const weatherIcons = {
             '01d': '☀️', '01n': '🌙',
             '02d': '⛅', '02n': '☁️',
@@ -411,7 +577,6 @@
             '50d': '🌫️', '50n': '🌫️'
         };
 
-        // Inizializza la mappa
         function initMap(lat, lon) {
             if (map) {
                 map.setView([lat, lon], 10);
@@ -432,9 +597,14 @@
             }
         }
 
-        // Toggle layer meteo
         function toggleLayer(layerType) {
-            const button = document.getElementById(`toggle${layerType.charAt(0).toUpperCase() + layerType.slice(1).replace('precipitation', 'Precip').replace('temp', 'Temp')}`);
+            const buttonMap = {
+                'clouds': 'toggleClouds',
+                'precipitation': 'togglePrecip',
+                'temp': 'toggleTemp'
+            };
+            
+            const button = document.getElementById(buttonMap[layerType]);
             
             if (weatherLayers[layerType]) {
                 map.removeLayer(weatherLayers[layerType]);
@@ -460,7 +630,6 @@
             }
         }
 
-        // Funzione per cercare meteo per città
         async function searchByCity() {
             const city = document.getElementById('cityInput').value.trim();
             
@@ -472,7 +641,6 @@
             await getWeatherData(city);
         }
 
-        // Funzione per ottenere meteo dalla posizione
         async function getLocationWeather() {
             if (!navigator.geolocation) {
                 showError('La geolocalizzazione non è supportata dal tuo browser');
@@ -502,7 +670,6 @@
             );
         }
 
-        // Funzione principale per ottenere i dati meteo
         async function getWeatherData(city = null, lat = null, lon = null) {
             showLoading(true);
             hideError();
@@ -516,61 +683,141 @@
                     weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric&lang=it`;
                 }
 
-                console.log('Richiesta meteo a:', weatherUrl);
-
-                // Ottieni dati meteo
                 const weatherResponse = await fetch(weatherUrl);
                 
                 if (!weatherResponse.ok) {
                     if (weatherResponse.status === 404) {
                         throw new Error('Città non trovata. Controlla il nome e riprova.');
                     } else if (weatherResponse.status === 401) {
-                        throw new Error('API key non valida. Potrebbe non essere ancora attiva (attendi 10-15 minuti dalla registrazione).');
+                        throw new Error('API key non valida.');
                     } else {
-                        throw new Error(`Errore ${weatherResponse.status}: ${weatherResponse.statusText}`);
+                        throw new Error(`Errore ${weatherResponse.status}`);
                     }
                 }
                 
                 const weatherData = await weatherResponse.json();
-                console.log('Dati meteo ricevuti:', weatherData);
 
-                // Ottieni dati qualità dell'aria
-                const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&appid=${API_KEY}`;
-                console.log('Richiesta qualità aria a:', airQualityUrl);
+                // Ottieni previsioni 5 giorni (API gratuita)
+                const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&appid=${API_KEY}&units=metric&lang=it`;
                 
+                let forecastData = null;
+                
+                try {
+                    const forecastResponse = await fetch(forecastUrl);
+                    if (forecastResponse.ok) {
+                        const forecast = await forecastResponse.json();
+                        // Raggruppa le previsioni per giorno (prende la previsione di mezzogiorno)
+                        forecastData = processForecastData(forecast.list);
+                    }
+                } catch (e) {
+                    console.log('Errore nel caricamento previsioni:', e);
+                }
+
+                // Ottieni qualità dell'aria
+                const airQualityUrl = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${weatherData.coord.lat}&lon=${weatherData.coord.lon}&appid=${API_KEY}`;
                 const airQualityResponse = await fetch(airQualityUrl);
                 const airQualityData = await airQualityResponse.json();
-                console.log('Dati qualità aria ricevuti:', airQualityData);
 
-                // Mostra i dati
-                displayWeatherData(weatherData, airQualityData);
-                
-                // Inizializza la mappa
+                displayWeatherData(weatherData, airQualityData, forecastData);
                 initMap(weatherData.coord.lat, weatherData.coord.lon);
                 
             } catch (error) {
-                console.error('Errore completo:', error);
+                console.error('Errore:', error);
                 showError(error.message);
             } finally {
                 showLoading(false);
             }
         }
 
-        // Funzione per mostrare i dati meteo
-        function displayWeatherData(weather, airQuality) {
+        // Funzione per processare i dati delle previsioni e raggruppare per giorno
+        function processForecastData(forecastList) {
+            const dailyForecasts = [];
+            const processedDays = new Set();
+            
+            forecastList.forEach(item => {
+                const date = new Date(item.dt * 1000);
+                const dateString = date.toDateString();
+                const hour = date.getHours();
+                
+                // Prendi solo una previsione per giorno (quella intorno a mezzogiorno)
+                if (!processedDays.has(dateString) && hour >= 11 && hour <= 14) {
+                    processedDays.add(dateString);
+                    dailyForecasts.push({
+                        dt: item.dt,
+                        temp: {
+                            day: item.main.temp,
+                            min: item.main.temp_min,
+                            max: item.main.temp_max
+                        },
+                        weather: item.weather
+                    });
+                }
+            });
+            
+            return dailyForecasts.slice(0, 5); // Massimo 5 giorni
+        }
+
+        function formatTime(timestamp) {
+            const date = new Date(timestamp * 1000);
+            return date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function formatDate(timestamp) {
+            const date = new Date(timestamp * 1000);
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            
+            if (date.toDateString() === today.toDateString()) {
+                return 'Oggi';
+            } else if (date.toDateString() === tomorrow.toDateString()) {
+                return 'Domani';
+            } else {
+                return date.toLocaleDateString('it-IT', { weekday: 'short', day: 'numeric', month: 'short' });
+            }
+        }
+
+        function displayWeatherData(weather, airQuality, forecast) {
             document.getElementById('cityName').textContent = `${weather.name}, ${weather.sys.country}`;
             
-            // Imposta l'icona meteo
             const iconCode = weather.weather[0].icon;
             const weatherIcon = weatherIcons[iconCode] || '🌤️';
             document.getElementById('weatherIcon').textContent = weatherIcon;
             
             document.getElementById('temperature').textContent = `${Math.round(weather.main.temp)}°C`;
             document.getElementById('description').textContent = weather.weather[0].description;
+            
+            // Alba e tramonto
+            document.getElementById('sunrise').textContent = formatTime(weather.sys.sunrise);
+            document.getElementById('sunset').textContent = formatTime(weather.sys.sunset);
+            
             document.getElementById('feelsLike').textContent = `${Math.round(weather.main.feels_like)}°C`;
             document.getElementById('humidity').textContent = `${weather.main.humidity}%`;
             document.getElementById('wind').textContent = `${Math.round(weather.wind.speed * 3.6)} km/h`;
             document.getElementById('pressure').textContent = `${weather.main.pressure} hPa`;
+
+            // Nascondi le allerte (non disponibili con API gratuita)
+            document.getElementById('weatherAlerts').classList.remove('active');
+
+            // Previsioni 5 giorni
+            if (forecast && forecast.length > 0) {
+                let forecastHtml = '';
+                forecast.forEach((day) => {
+                    const icon = weatherIcons[day.weather[0].icon] || '🌤️';
+                    forecastHtml += `
+                        <div class="forecast-day">
+                            <div class="forecast-date">${formatDate(day.dt)}</div>
+                            <div class="forecast-icon">${icon}</div>
+                            <div class="forecast-temp">${Math.round(day.temp.day)}°C</div>
+                            <div class="forecast-temp-range">${Math.round(day.temp.min)}° / ${Math.round(day.temp.max)}°</div>
+                            <div class="forecast-desc">${day.weather[0].description}</div>
+                        </div>
+                    `;
+                });
+                document.getElementById('forecastContainer').innerHTML = forecastHtml;
+            } else {
+                document.getElementById('forecastContainer').innerHTML = '<p style="color: var(--text-secondary); text-align: center;">Previsioni non disponibili</p>';
+            }
 
             // Qualità dell'aria
             const aqi = airQuality.list[0].main.aqi;
@@ -595,7 +842,6 @@
             document.getElementById('weatherInfo').style.display = 'block';
         }
 
-        // Funzioni di utilità
         function showLoading(show) {
             document.getElementById('loading').style.display = show ? 'block' : 'none';
         }
@@ -610,16 +856,13 @@
             document.getElementById('errorMessage').style.display = 'none';
         }
 
-        // Permetti di cercare premendo Enter
         document.getElementById('cityInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 searchByCity();
             }
         });
 
-        // Messaggio di benvenuto nella console
-        console.log('☁️ SkyCheck caricato correttamente!');
-        console.log('API Key configurata:', API_KEY.substring(0, 8) + '...');
+        console.log('☁️ SkyCheck v2.0 caricato!');
     </script>
 </body>
 </html>
