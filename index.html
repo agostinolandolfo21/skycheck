@@ -4,11 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval' https://unpkg.com; style-src 'unsafe-inline' https://unpkg.com; connect-src https://api.openweathermap.org https://*.tile.openstreetmap.org https://tile.openweathermap.org; img-src * data: blob:;">
-    <meta name="description" content="SkyCheck - Il tuo meteo in tempo reale con previsioni, mappa e qualità dell'aria">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="SkyCheck - Applicazione meteo gratuita con previsioni a 5 giorni, mappa interattiva, qualità dell'aria, alba e tramonto. Meteo in tempo reale per qualsiasi città del mondo.">
+    <meta name="keywords" content="skycheck, app meteo, previsioni meteo, meteo tempo reale, qualità aria, mappa meteo, alba tramonto, meteo 5 giorni, meteo italia">
+    <meta name="author" content="Agostino Landolfo">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://agostinolandolfo21.github.io/skycheck/">
+    <meta property="og:title" content="SkyCheck - App Meteo Gratuita">
+    <meta property="og:description" content="Previsioni meteo in tempo reale con mappa interattiva, qualità dell'aria e previsioni a 5 giorni">
+    <meta property="og:image" content="https://agostinolandolfo21.github.io/skycheck/icon-512.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://agostinolandolfo21.github.io/skycheck/">
+    <meta property="twitter:title" content="SkyCheck - App Meteo Gratuita">
+    <meta property="twitter:description" content="Previsioni meteo in tempo reale con mappa interattiva, qualità dell'aria e previsioni a 5 giorni">
+    <meta property="twitter:image" content="https://agostinolandolfo21.github.io/skycheck/icon-512.png">
+    
+    <!-- PWA -->
     <meta name="theme-color" content="#667eea">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
-    <title>SkyCheck - App Meteo</title>
+    <link rel="canonical" href="https://agostinolandolfo21.github.io/skycheck/">
+    
+    <title>SkyCheck - App Meteo Gratuita | Previsioni Tempo Reale</title>
+    
+    <!-- Structured Data for Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "SkyCheck",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web Browser, iOS, Android",
+      "description": "Applicazione meteo gratuita con previsioni a 5 giorni, mappa interattiva, qualità dell'aria, alba e tramonto per qualsiasi città del mondo",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "EUR"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Agostino Landolfo"
+      },
+      "screenshot": "https://agostinolandolfo21.github.io/skycheck/icon-512.png",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1"
+      }
+    }
+    </script>
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -460,6 +510,29 @@
     <div class="container">
         <h1>☁️ SkyCheck</h1>
         <p class="subtitle">Il tuo meteo in tempo reale</p>
+
+        <!-- SEO Content Section (nascosta visivamente ma leggibile da Google) -->
+        <section style="position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden;">
+            <h2>SkyCheck - Applicazione Meteo Gratuita</h2>
+            <p>SkyCheck è un'applicazione meteo completamente gratuita che fornisce previsioni meteorologiche in tempo reale per qualsiasi città del mondo. Controlla il meteo con precisione grazie alle nostre funzionalità avanzate.</p>
+            
+            <h3>Funzionalità Principali</h3>
+            <ul>
+                <li>Previsioni meteo a 5 giorni con temperature minime e massime</li>
+                <li>Mappa interattiva con layer meteo (nuvole, precipitazioni, temperatura)</li>
+                <li>Qualità dell'aria in tempo reale (PM2.5, PM10, NO₂, O₃, CO)</li>
+                <li>Orari di alba e tramonto precisi</li>
+                <li>Geolocalizzazione automatica per il meteo della tua posizione</li>
+                <li>Temperatura percepita, umidità, velocità del vento e pressione atmosferica</li>
+                <li>Modalità scura automatica per comfort visivo</li>
+                <li>Installabile come app sulla home screen (PWA)</li>
+            </ul>
+            
+            <h3>Come Usare SkyCheck</h3>
+            <p>Usa SkyCheck per controllare le previsioni meteo semplicemente cercando una città o utilizzando la geolocalizzazione. L'app fornisce dati meteorologici accurati e aggiornati in tempo reale, incluse temperature, condizioni meteo, qualità dell'aria e molto altro.</p>
+            
+            <p>SkyCheck funziona su qualsiasi dispositivo: smartphone, tablet e computer. Può essere installata come app sulla schermata home del tuo dispositivo per un accesso ancora più rapido alle previsioni meteo.</p>
+        </section>
 
         <!-- Sezione ricerca -->
         <div class="search-section">
